@@ -1,0 +1,52 @@
+<!-- Agregamos el Header  -->
+{% include 'header.html' %}
+
+{% for empleado in empleados %}
+<form method="post" action="/update" enctype="multipart/form-data">
+
+    <div class="card">
+        <div class="card-header">
+            Editar al Empleado
+        </div>
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text"></p>
+            <br>
+            
+            <!-- Le agrego al ID el tipo Hidden para que exista el dato, se envie pero no se vea en pantalla -->
+            <input type="hidden" name="txtID" value="{{empleado[0]}}" id="txtID">
+
+            <div class="form-group">
+                <label for="txtNombre">Nombre: </label>
+                <input id="txtNombre" value="{{empleado[1]}}" class="form-control" type="text" name="txtNombre">
+            </div>
+
+            <div class="form-group">
+                <label for="txtCorreo">Correo: </label>
+                <input id="txtCorreo" value="{{empleado[2]}}" class="form-control" type="text" name="txtCorreo">
+            </div>
+
+            <div class="form-group">
+                <label for="txtFoto">Foto: </label>
+                <!-- Buscar la foto de cada persona para que la muestre, url_for buscando en la ruta de uploads con el parametro nombreFoto con empleado[3] -->
+                <img class="img-thumbnail" width="100" src="{{url_for("uploads", nombreFoto=empleado[3])}}" alt="">
+                <input id="txtFoto" value="{{empleado[3]}}" class="form-control" type="file" name="txtFoto">
+            </div>
+
+            <div class="form-group">
+                <input class="btn btn-success" type="submit" value="Editar">
+                <a href="{{url_for('index')}}" class="btn btn-primary"> Inicio </a>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    
+
+</form>
+{% endfor %}
+
+<!-- Agregamos el Footer  -->
+{% include 'footer.html' %}

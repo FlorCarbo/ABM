@@ -1,0 +1,49 @@
+<!-- Agregamos el Header  -->
+{% include 'header.html' %}
+<br>
+<a href="{{url_for('create')}}" class="btn btn-primary">Crear Empleado</a>
+<br> <br>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Pagina Inicial</title>
+</head>
+<body>
+    <h1>LISTA EMPLEADOS</h1>
+
+    <table class="table table-light">
+        <thead class="thead-light">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Foto</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for empleado in empleados%} <!-- Iteramos la tupla de empleados para que me muestre los registros -->
+            <tr>
+                <td>{{empleado[0] }}</td> <!-- Aca le indico la posicion de la tupla para que imprima, va a estar en el orden de la BD -->
+                <td>{{empleado[1] }}</td>
+                <td>{{empleado[2] }}</td>
+                <td> <img class="img-thumbnail" width="100" src="uploads/{{empleado[3] }}" alt=""> </td> <!--En app.py hay que importar from flask import send_from_directory-->
+                <td> <a href="/edit/{{empleado[0]}}"   class="btn btn-warning">Editar</a> | 
+                <a onclick="return confirm('Esta seguro que desea borrar al empleado?' )" href="/destroy/{{empleado[0]}}"  class="btn btn-danger"> Borrar</a> 
+                </td> <!-- Indico que el Borrar vaya al link de destroy y la posicion 0 donde esta el ID de cada registro -->
+            </tr>
+            {%endfor%} <!-- Finaliza la iteracion todo dentro de la tr -->
+        </tbody>
+    </table>
+
+
+</body>
+</html>
+
+<!-- Agregamos el Footer  -->
+{% include 'footer.html' %}
